@@ -28,5 +28,14 @@ namespace Tests
         {
 
         }
+
+        [Fact]
+        public void AdoRepositoryOpenTest()
+        {
+            var cx = new DataContext();
+            cx.BaseUsers = new DAL.Repository.ADORepository<DAL.Entities.BaseUser>();
+            cx.BaseUsers.Open("Data Source=data.sqlite;Cache=Shared");
+
+        }
     }
 }
