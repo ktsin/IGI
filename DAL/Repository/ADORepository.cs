@@ -11,15 +11,18 @@ namespace DAL.Repository
     {
         public void Append(T entity)
         {
-            throw new NotImplementedException();
+            var serialized = entity.Serialize();
+            var values = String.Join(", ", serialized);
+            SQLiteCommand command = connection.CreateCommand();
+            command.CommandText = $"INSERT INTO \"main\".\"{tableName}\" VALUES({values})";
+            command.ExecuteNonQuery();
         }
 
         public void Delete(int id)
         {
             SQLiteCommand command = connection.CreateCommand();
-            command.CommandText = $"SELECT * FROM \"main\".\"{tableName}\" WHERE Id={id} ";
-            command.CommandType = System.Data.CommandType.Text;
-            var reader = command.ExecuteNonQuery();
+            command.CommandText = $"DELETE FROM \"main\".\"{tableName}\" WHERE Id={id} ";
+            command.ExecuteNonQuery();
         }
 
         public T GetById(int id)
@@ -72,7 +75,11 @@ namespace DAL.Repository
 
         public void Update(T entity)
         {
-            throw new NotImplementedException();
+            var serialized = entity.Serialize().Skip(1);
+            var values = String.Join(", ", serialized);
+            SQLiteCommand command = connection.CreateCommand();
+            command.CommandText = $"UPDATE \"main\".\"{tableName}\" VALUES({values}) WHERE Id={entity.Id} ";
+            command.ExecuteNonQuery();
         }
 
         public List<T> Read()
