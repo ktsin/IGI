@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace DAL.Entities
 {
-    public class BaseEntity
+    public abstract class BaseEntity
     {
-        public virtual int Id { get; set; }
+        public abstract int Id { get; set; }
+
+        public abstract void Deserialize(object[] values);
+
+        public abstract object[] Serialize();
     }
 }

@@ -43,10 +43,16 @@ namespace DAL
             
         }
 
-        public void Delete()
+        public void Delete(int id)
         {
             Refresh();
-            //throw new NotImplementedException();
+            data.RemoveAll(e => e.Id == id);
+            using var fileStrem = new StreamWriter(File.Open(filename, FileMode.Truncate));
+            using var cswWriter = new CsvWriter(fileStrem, CultureInfo.InvariantCulture);
+            cswWriter.WriteHeader<T>();
+            cswWriter.WriteRecords(data);
+            fileStrem.Flush();
+            fileStrem.WriteLine("");
         }
 
         public bool Open(string connectionString)

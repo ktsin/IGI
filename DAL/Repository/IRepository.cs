@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DAL
 {
-    public interface IRepository<T>
+    public interface IRepository<T> where T : class
     {
         bool Open(string connectionString);
 
@@ -16,6 +16,6 @@ namespace DAL
 
         void Update(T entity);
 
-        void Delete();
+        void Delete(int id);
     }
 }
