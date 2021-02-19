@@ -9,16 +9,14 @@ namespace Tests
         [Fact]
         public void ShopCSVRepositoryOpen()
         {
-            DataContext cx = new();
-            cx.Shops = new DAL.CSVRepository<DAL.Entities.Shop>();
+            DataContext cx = new("CSV");
             cx.Shops.Open(@"C:\Users\рлорло\Desktop\lab 1\lab 1\testCSV\");
         }
 
         [Fact]
         public void ShopCSVRepositoryWriter()
         {
-            DataContext cx = new();
-            cx.Shops = new DAL.CSVRepository<DAL.Entities.Shop>();
+            DataContext cx = new("CSV");
             cx.Shops.Open(@"C:\Users\рлорло\Desktop\lab 1\lab 1\testCSV\");
             cx.Shops.Append(new DAL.Entities.Shop() { Id = 100, Name="nil Shop", OwnerId = 2, Raiting = 3.1F});
         }
@@ -32,8 +30,7 @@ namespace Tests
         [Fact]
         public void AdoRepositoryOpenTest()
         {
-            var cx = new DataContext();
-            cx.BaseUsers = new DAL.Repository.ADORepository<DAL.Entities.BaseUser>();
+            var cx = new DataContext("CSV");
             cx.BaseUsers.Open("Data Source=data.sqlite;Cache=Shared");
 
         }
