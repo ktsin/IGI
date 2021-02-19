@@ -14,7 +14,7 @@ namespace lab1_inform.UI.Pages
             base("Выбор таблицы", program, 
                 new Option("Магазины", ()=> { }),
                 new Option("Товары", () => { }),
-                new Option("Пользователи Обычные", () => { }),
+                new Option("Пользователи", () => { }),
                 new Option("Заказы", () => { })
             ) {}
 

@@ -12,9 +12,9 @@ namespace DAL.Repository
         public void Append(T entity)
         {
             var serialized = entity.Serialize();
-            var values = String.Join(", ", serialized);
+            var values = String.Join(", ", serialized).Skip(1);
             SQLiteCommand command = connection.CreateCommand();
-            command.CommandText = $"INSERT INTO \"main\".\"{tableName}\" VALUES({values})";
+            command.CommandText = $"INSERT INTO \"main\".\"{tableName}\" VALUES({"null,"+values})";
             command.ExecuteNonQuery();
         }
 
@@ -78,7 +78,7 @@ namespace DAL.Repository
             var serialized = entity.Serialize().Skip(1);
             var values = String.Join(", ", serialized);
             SQLiteCommand command = connection.CreateCommand();
-            command.CommandText = $"UPDATE \"main\".\"{tableName}\" VALUES({values}) WHERE Id={entity.Id} ";
+            command.CommandText = $"UPDATE \"main\".\"{tableName}\" VALUES({"null,"+values}) WHERE Id={entity.Id} ";
             command.ExecuteNonQuery();
         }
 
