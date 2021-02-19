@@ -8,7 +8,7 @@ using System.Globalization;
 using System.Linq;
 using CsvHelper.Configuration;
 
-namespace DAL
+namespace DAL.Repository
 {
     public class CSVRepository<T> : IRepository<T> where T : Entities.BaseEntity
     {
