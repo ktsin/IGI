@@ -45,15 +45,14 @@ namespace DAL.Repository
         /// <summary>
         /// Открывает соединение с БД.
         /// </summary>
-        /// <param name="connectionString">Строка подключения к БД</param>
+        /// <param name="connectionString">Путь к бд</param>
         /// <returns></returns>
         public bool Open(string connectionString)
         {
             bool flag = true;
             try
             {
-                connection = new SQLiteConnection(connectionString);
-                connection.ConnectionString = connectionString;
+                connection = new SQLiteConnection($"Data Source={connectionString};Cache=Shared");
                 connection.Open();
                 var headerTest = new SQLiteCommand(connection);
                 tableName = this.GetType().GetGenericArguments()[0].Name;
@@ -95,9 +94,7 @@ namespace DAL.Repository
                 var record = new T();
                 System.Collections.ArrayList fields = new(i.FieldCount);
                 for(int j = 0; j < i.FieldCount; j++)
-                {
                     fields[j] = i.GetValue(j);
-                }
                 record.Deserialize(fields.ToArray());
                 result.Add(record);
             }

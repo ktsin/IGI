@@ -18,8 +18,8 @@ namespace lab1_inform.UI.Pages
                     StateSingleton.State = StateSingleton.Mode.Edit;
                     prog.NavigateTo<EntitySelectionPage>(); }),
                 new Option("Открыть SQL источник", () => {
-                    StateSingleton.State = StateSingleton.Mode.Edit;
-                    prog.NavigateTo<EntitySelectionPage>();
+                    StateSingleton.State = StateSingleton.Mode.Connection;
+                    prog.NavigateTo<SQLConnectionPoposal>();
                 }),
                 new Option("Открыть CSV источник", () => {
                     StateSingleton.State = StateSingleton.Mode.Connection;

@@ -30,9 +30,8 @@ namespace Tests
         [Fact]
         public void AdoRepositoryOpenTest()
         {
-            var cx = new DataContext("CSV");
-            cx.BaseUsers.Open("Data Source=data.sqlite;Cache=Shared");
-
+            var cx = new DataContext("ADO");
+            Assert.True(cx.BaseUsers.Open("Data Source=data.sqlite;Cache=Shared"));
         }
     }
 }
