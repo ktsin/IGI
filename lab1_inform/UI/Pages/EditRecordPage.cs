@@ -40,12 +40,22 @@ namespace lab1_inform.UI.Pages
             var properties = current.GetProperties().Skip(1);
             Console.Write("Введите номер записи: ");
             int currentId = EasyConsoleCore.Input.ReadInt(1, Int32.MaxValue);
-            var obj = StateSingleton.Context.Products.GetById(currentId);
+            object obj = context.GetById(currentId);
             foreach(var property in properties)
             {
-                Console.WriteLine($"Поле: {property.Name}");
+                Console.WriteLine($"Поле: {property.Name}, Тип: {property.PropertyType.Name}");
+                var str = EasyConsoleCore.Input.ReadString("Введите новое значение (пусто => не изменяем): ");
+                Console.WriteLine($"Echo : {str}");
+                if (!String.IsNullOrWhiteSpace(str))
+                {
+                    var result = property.PropertyType
+                            .GetMethod("Parse", new Type[] { typeof(String) })
+                            .Invoke(null, new object[] { str });
+                    property.SetMethod.Invoke(obj, new object[] { result });
+                }
             }
             Console.WriteLine("");
+            Console.ReadKey();
             this.Program.NavigateHome();
         }
     }

@@ -35,8 +35,13 @@ namespace DAL.Repository
                 return default;
             var result = new T();
             var values = new List<object>();
-            for (int i = 0; i < reader.FieldCount; i++)
-                values.Add(reader.GetValue(i));
+            foreach(DbDataRecord rec in reader)
+            {
+                for(int i = 0; i < rec.FieldCount; i++)
+                {
+                    values.Add(rec[i]);
+                }
+            }
             result.Deserialize(values.ToArray());
             reader.Close();
             return result;
