@@ -40,7 +40,13 @@ namespace lab1_inform.UI.Pages
             var properties = current.GetProperties().Skip(1);
             Console.Write("Введите номер записи: ");
             int currentId = EasyConsoleCore.Input.ReadInt(1, Int32.MaxValue);
-            object obj = context.GetById(currentId);
+            DAL.Entities.BaseEntity obj = context.GetById(currentId);
+            if(obj == null)
+            {
+                Console.WriteLine("Запись не найдена!");
+                Console.ReadKey();
+                this.Program.NavigateHome();
+            }
             foreach(var property in properties)
             {
                 Console.WriteLine($"Поле: {property.Name}, Тип: {property.PropertyType.Name}");
@@ -54,6 +60,8 @@ namespace lab1_inform.UI.Pages
                     property.SetMethod.Invoke(obj, new object[] { result });
                 }
             }
+            
+            context.GetType().GetMethod("Update").Invoke(context, new object[] { obj });
             Console.WriteLine("");
             Console.ReadKey();
             this.Program.NavigateHome();

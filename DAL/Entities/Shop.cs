@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 
 namespace DAL.Entities
@@ -33,7 +34,7 @@ namespace DAL.Entities
                 $"'{Id}'",
                 $"'{Name}'",
                 $"'{OwnerId}'",
-                $"'{Raiting}'"
+                $"'{Raiting.ToString(CultureInfo.InvariantCulture)}'"
             };
             return list.ToArray();
         }

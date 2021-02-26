@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using System.Globalization;
 
 namespace DAL.Entities
 {
@@ -36,7 +37,7 @@ namespace DAL.Entities
             ArrayList list = new ArrayList()
             {
                 $"'{Id}'",
-                $"'{Price}'",
+                $"'{Price.ToString(CultureInfo.InvariantCulture)}'",
                 $"'{Discount}'",
                 $"'{Name}'",
                 $"'{ShortDescription}'",

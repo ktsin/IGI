@@ -80,9 +80,14 @@ namespace DAL.Repository
         public void Update(T entity)
         {
             var serialized = entity.Serialize().Skip(1);
-            var values = String.Join(", ", serialized);
+            var names = entity.GetType().GetProperties().Skip(1);
+            var namesAndValues = new List<string>();
+            for(int i = 0; i < serialized.Count(); i++)
+            {
+                namesAndValues.Add($"\"{names.ElementAt(i).Name}\"={serialized.ElementAt(i)}");
+            }
             SQLiteCommand command = connection.CreateCommand();
-            command.CommandText = $"UPDATE \"main\".\"{tableName}\" VALUES({"null,"+values}) WHERE Id={entity.Id};";
+            command.CommandText = $"UPDATE \"main\".\"{tableName}\" SET {String.Join(", ", namesAndValues)} WHERE Id={entity.Id};";
             command.ExecuteNonQuery();
         }
 
