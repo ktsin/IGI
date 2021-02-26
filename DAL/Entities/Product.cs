@@ -23,24 +23,24 @@ namespace DAL.Entities
         {
             if (values.Length != 6)
                 throw new Exception($"Got {values.Length}, expected {5} values");
-            Id = (int)values[0];
-            Price = (float)values[1];
-            Discount = (int)values[2];
+            Id = (Int32)(Int64)values[0];
+            Price = (float)(Double)values[1];
+            Discount = (Int32)(Int64)values[2];
             Name = (string)values[3];
             ShortDescription = (string)values[4];
-            ShopId = (int)values[5];
+            ShopId = (Int32)(Int64)values[5];
         }
 
         public override object[] Serialize()
         {
-            ArrayList list = new ArrayList(6)
+            ArrayList list = new ArrayList()
             {
-                [0] = $"'{Id}'",
-                [1] = $"'{Price}'",
-                [2] = $"'{Discount}'",
-                [3] = $"'{Name}'",
-                [4] = $"'{ShortDescription}'",
-                [5] = $"'{ShopId}'"
+                $"'{Id}'",
+                $"'{Price}'",
+                $"'{Discount}'",
+                $"'{Name}'",
+                $"'{ShortDescription}'",
+                $"'{ShopId}'"
             };
             return list.ToArray();
         }

@@ -21,22 +21,22 @@ namespace DAL.Entities
         {
             if (values.Length != 5)
                 throw new Exception($"Got {values.Length}, expected {5} values");
-            Id = (int)values[0];
-            Buyer = (int)values[1];
-            ProductId = (int)values[2];
-            Count = (int)values[3];
-            Price = (float)values[4];
+            Id = (Int32)(Int64)values[0];
+            Buyer = (Int32)(Int64)values[1];
+            ProductId = (Int32)(Int64)values[2];
+            Count = (Int32)(Int64)values[3];
+            Price = (float)(Double)values[4];
         }
 
         public override object[] Serialize()
         {
-            ArrayList list = new ArrayList(5)
+            ArrayList list = new ArrayList()
             {
-                [0] = $"'{Id}'",
-                [1] = $"'{Buyer}'",
-                [2] = $"'{ProductId}'",
-                [3] = $"'{Count}'",
-                [4] = $"'{Price}'"
+                $"'{Id}'",
+                $"'{Buyer}'",
+                $"'{ProductId}'",
+                $"'{Count}'",
+                $"'{Price}'"
             };
             return list.ToArray();
         }

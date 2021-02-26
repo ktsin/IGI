@@ -21,7 +21,7 @@ namespace DAL.Entities
         {
             if (values.Length != 5)
                 throw new Exception($"Got {values.Length}, expected {5} values");
-            Id = (int)values[0];
+            Id = (Int32)(Int64)values[0];
             Name = (string)values[1];
             UserName = (string)values[2];
             PasswordHash = (string)values[3];
@@ -32,11 +32,11 @@ namespace DAL.Entities
         {
             ArrayList list = new ArrayList(5)
             {
-                [0] = $"'{Id}'",
-                [1] = $"'{Name}'",
-                [2] = $"'{UserName}'",
-                [3] = $"'{PasswordHash}'",
-                [4] = $"'{Born.ToShortDateString()}'"
+                $"'{Id}'",
+                $"'{Name}'",
+                $"'{UserName}'",
+                $"'{PasswordHash}'",
+                $"'{Born.ToShortDateString()}'"
             };
             return list.ToArray();
         }
