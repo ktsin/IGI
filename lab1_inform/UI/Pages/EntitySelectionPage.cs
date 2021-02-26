@@ -29,7 +29,19 @@ namespace lab1_inform.UI.Pages
         public override void Display()
         {
             base.Display();
-            this.Program.NavigateTo<DataViewPage>();
+            switch (StateSingleton.State)
+            {
+                case StateSingleton.Mode.View:
+                    this.Program.NavigateTo<DataViewPage>();
+                    break;
+                case StateSingleton.Mode.Remove:
+                    this.Program.NavigateTo<DeleteRecordPage>();
+                    break;
+                case StateSingleton.Mode.Edit:
+                    this.Program.NavigateTo<EditRecordPage>();
+                    break;
+            }
+            
         }
     }
 }

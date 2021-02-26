@@ -24,7 +24,9 @@ namespace Tests
         [Fact]
         public void BaseUserCSVRepositoryOpen()
         {
-
+            var x = new DAL.Entities.Product();
+            var t = x.GetType().GetProperties();
+            x = x;
         }
 
         [Fact]

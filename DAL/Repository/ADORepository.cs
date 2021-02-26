@@ -77,7 +77,7 @@ namespace DAL.Repository
             var serialized = entity.Serialize().Skip(1);
             var values = String.Join(", ", serialized);
             SQLiteCommand command = connection.CreateCommand();
-            command.CommandText = $"UPDATE \"main\".\"{tableName}\" VALUES({"null,"+values}) WHERE Id={entity.Id} ";
+            command.CommandText = $"UPDATE \"main\".\"{tableName}\" VALUES({"null,"+values}) WHERE Id={entity.Id};";
             command.ExecuteNonQuery();
         }
 

@@ -24,6 +24,14 @@ namespace lab1_inform.UI.Pages
                 new Option("Открыть CSV источник", () => {
                     StateSingleton.State = StateSingleton.Mode.Connection;
                     prog.NavigateTo<CSVConnectionProposal>();
+                }),
+                new Option("Удалить данные", () => {
+                    StateSingleton.State = StateSingleton.Mode.Remove;
+                    prog.NavigateTo<EntitySelectionPage>();
+                }),
+                new Option("Редактирвоать данные", () => {
+                    StateSingleton.State = StateSingleton.Mode.Edit;
+                    prog.NavigateTo<EntitySelectionPage>();
                 })
                 ) { }
 

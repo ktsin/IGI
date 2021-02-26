@@ -17,8 +17,8 @@ namespace lab1_inform.UI
             AddPage(new CSVConnectionProposal(this));
             AddPage(new SQLConnectionPoposal(this));
             AddPage(new DataViewPage(this));
-            //AddPage(new Page1B(this));
-            //AddPage(new Page2(this));
+            AddPage(new DeleteRecordPage(this));
+            AddPage(new EditRecordPage(this));
 
             SetPage<MainPage>();
         }
