@@ -13,24 +13,27 @@ namespace DAL.Entities
         public int OwnerId { get; set; }
         public float Raiting { get; set; }
 
-        public override void Deserialize(object[] values)
+        public override void Deserialize(object[] values) 
         {
             if (values.Length != 4)
                 throw new Exception($"Got {values.Length}, expected {4} values");
-            Id = (int)values[0];
-            Name = (string)values[1];
-            OwnerId = (int)values[2];
-            Raiting = (float)values[3];
+            unchecked
+            {
+                Id = (int)((Int64)values[0]);
+                Name = (string)values[1];
+                OwnerId = (int)((Int64)values[2]);
+                Raiting = (float)((Double)values[3]);
+            }
         }
 
         public override object[] Serialize()
         {
-            ArrayList list = new ArrayList(4)
+            ArrayList list = new ArrayList()
             {
-                [0] = $"'{Id}'",
-                [1] = $"'{Name}'",
-                [2] = $"'{OwnerId}'",
-                [3] = $"'{Raiting}'"
+                $"'{Id}'",
+                $"'{Name}'",
+                $"'{OwnerId}'",
+                $"'{Raiting}'"
             };
             return list.ToArray();
         }

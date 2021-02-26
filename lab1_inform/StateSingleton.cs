@@ -16,10 +16,23 @@ namespace lab1_inform
             Connection
         }
 
+        public enum Table
+        {
+            None,
+            BaseUser,
+            Order,
+            Product,
+            Shop
+        }
+
         public static Mode State { get; set; }
+
+        public static Table SelectedTable { get; set; } = Table.None;
 
         public static string ConnectionString { get; set; } = "nil";
 
         public static DataContext Context { get; set; }
+
+
     }
 }

@@ -84,9 +84,9 @@ namespace DAL.Repository
         public List<T> Read()
         {
             var command = connection.CreateCommand();
-            command.CommandText = $"SELECT * FROM {tableName}";
+            command.CommandText = $"SELECT * FROM \"main\".\"{tableName}\";";
             var reader = command.ExecuteReader();
-            if(!reader.HasRows)
+            if (!reader.HasRows)
                 return new List<T>();
             var result = new List<T>();
             foreach(DbDataRecord i in reader)
@@ -94,7 +94,9 @@ namespace DAL.Repository
                 var record = new T();
                 System.Collections.ArrayList fields = new(i.FieldCount);
                 for(int j = 0; j < i.FieldCount; j++)
-                    fields[j] = i.GetValue(j);
+                {
+                    fields.Add(i[j]);
+                }
                 record.Deserialize(fields.ToArray());
                 result.Add(record);
             }
