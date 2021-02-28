@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 using EasyConsoleCore;
 
 namespace lab1_inform.UI.Pages
@@ -15,9 +16,15 @@ namespace lab1_inform.UI.Pages
         public override void Display()
         {
             base.Display();
-            Console.WriteLine("Строка подключения к CSV источнику -- путь к папке," +
-                " содержащей *.csv с именами таблиц");
-            string path = Input.ReadString("Путь до папочки: ");
+            bool isExist = false;
+            string path = "";
+            while (!isExist)
+            {
+                Console.WriteLine("Строка подключения к CSV источнику -- путь к папке," +
+                    " содержащей *.csv с именами таблиц");
+                path = Input.ReadString("Путь до папочки: ");
+                isExist = Directory.Exists(path);
+            }
             //opening repositories
             StateSingleton.Context = new("CSV");
             StateSingleton.Context.BaseUsers.Open(path);

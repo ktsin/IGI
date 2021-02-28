@@ -14,9 +14,6 @@ namespace lab1_inform.UI.Pages
                 new Option("Просмотр данных", () => { 
                     StateSingleton.State = StateSingleton.Mode.View;
                     prog.NavigateTo<EntitySelectionPage>(); }),
-                new Option("Редактирование данных", () => {
-                    StateSingleton.State = StateSingleton.Mode.Edit;
-                    prog.NavigateTo<EntitySelectionPage>(); }),
                 new Option("Открыть SQL источник", () => {
                     StateSingleton.State = StateSingleton.Mode.Connection;
                     prog.NavigateTo<SQLConnectionPoposal>();
@@ -31,6 +28,10 @@ namespace lab1_inform.UI.Pages
                 }),
                 new Option("Редактирвоать данные", () => {
                     StateSingleton.State = StateSingleton.Mode.Edit;
+                    prog.NavigateTo<EntitySelectionPage>();
+                }),
+                new Option("Вставить данные", () => {
+                    StateSingleton.State = StateSingleton.Mode.Append;
                     prog.NavigateTo<EntitySelectionPage>();
                 })
                 ) { }

@@ -14,6 +14,7 @@ namespace lab1_inform
             View,
             Edit,
             Remove,
+            Append,
             Connection
         }
 

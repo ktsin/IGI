@@ -19,6 +19,7 @@ namespace lab1_inform.UI
             AddPage(new DataViewPage(this));
             AddPage(new DeleteRecordPage(this));
             AddPage(new EditRecordPage(this));
+            AddPage(new AddRecordPage(this));
 
             SetPage<MainPage>();
         }

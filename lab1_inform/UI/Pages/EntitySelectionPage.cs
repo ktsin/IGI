@@ -40,6 +40,9 @@ namespace lab1_inform.UI.Pages
                 case StateSingleton.Mode.Edit:
                     this.Program.NavigateTo<EditRecordPage>();
                     break;
+                case StateSingleton.Mode.Append:
+                    this.Program.NavigateTo<AddRecordPage>();
+                    break;
             }
             
         }

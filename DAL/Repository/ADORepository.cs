@@ -12,25 +12,31 @@ namespace DAL.Repository
         public void Append(T entity)
         {
             var serialized = entity.Serialize();
-            var values = String.Join(", ", serialized).Skip(1);
-            SQLiteCommand command = connection.CreateCommand();
-            command.CommandText = $"INSERT INTO \"main\".\"{tableName}\" VALUES({"null,"+values})";
+            var values = String.Join(", ", serialized.Skip(1));
+            using SQLiteCommand command = connection.CreateCommand();
+            command.CommandText = "BEGIN TRANSACTION;";
+            command.ExecuteNonQuery();
+            command.CommandText = $"INSERT INTO \"main\".\"{tableName}\" VALUES({"null,"+values});";
+            command.ExecuteNonQuery();
+            command.CommandText = "COMMIT;";
             command.ExecuteNonQuery();
         }
 
         public void Delete(int id)
         {
-            SQLiteCommand command = connection.CreateCommand();
+            using SQLiteCommand command = connection.CreateCommand();
             command.CommandText = $"DELETE FROM \"main\".\"{tableName}\" WHERE Id={id} ";
+            command.ExecuteNonQuery();
+            command.CommandText = "COMMIT;";
             command.ExecuteNonQuery();
         }
 
         public T GetById(int id)
         {
-            SQLiteCommand command = connection.CreateCommand();
-            command.CommandText = $"SELECT * FROM \"main\".\"{tableName}\" WHERE Id={id} ";
+            using SQLiteCommand command = connection.CreateCommand();
+            command.CommandText = $"SELECT * FROM \"main\".\"{tableName}\" WHERE Id={id};";
             command.CommandType = System.Data.CommandType.Text;
-            var reader = command.ExecuteReader();
+            using var reader = command.ExecuteReader();
             if (!reader.HasRows)
                 return default;
             var result = new T();
@@ -61,9 +67,9 @@ namespace DAL.Repository
                 connection.Open();
                 var headerTest = new SQLiteCommand(connection);
                 tableName = this.GetType().GetGenericArguments()[0].Name;
-                headerTest.CommandText = $"SELECT tbl_name FROM \"main\".sqlite_master WHERE name=\"{tableName}\"";
+                headerTest.CommandText = $"SELECT tbl_name FROM \"main\".sqlite_master WHERE name=\"{tableName}\";";
                 headerTest.CommandType = System.Data.CommandType.Text;
-                SQLiteDataReader reader = headerTest.ExecuteReader(System.Data.CommandBehavior.SingleResult);
+                using SQLiteDataReader reader = headerTest.ExecuteReader(System.Data.CommandBehavior.SingleResult);
                 if (!reader.HasRows)
                 {
                     connection.Close();
@@ -86,14 +92,16 @@ namespace DAL.Repository
             {
                 namesAndValues.Add($"\"{names.ElementAt(i).Name}\"={serialized.ElementAt(i)}");
             }
-            SQLiteCommand command = connection.CreateCommand();
+            using SQLiteCommand command = connection.CreateCommand();
             command.CommandText = $"UPDATE \"main\".\"{tableName}\" SET {String.Join(", ", namesAndValues)} WHERE Id={entity.Id};";
+            command.ExecuteNonQuery();
+            command.CommandText = "COMMIT;";
             command.ExecuteNonQuery();
         }
 
         public List<T> Read()
         {
-            var command = connection.CreateCommand();
+            using var command = connection.CreateCommand();
             command.CommandText = $"SELECT * FROM \"main\".\"{tableName}\";";
             var reader = command.ExecuteReader();
             if (!reader.HasRows)
@@ -120,6 +128,7 @@ namespace DAL.Repository
         public void Dispose()
         {
             connection.Close();
+            GC.SuppressFinalize(this);
         }
     }
 }
