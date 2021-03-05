@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using CsvHelper;
 
 namespace DAL.Entities
 {
@@ -13,8 +14,10 @@ namespace DAL.Entities
 
         public string UserName { get; set; }
 
+        
         public string PasswordHash { get; set; }
 
+        [CsvHelper.Configuration.Attributes.Format("dd.mm.yyyy")]
         public DateTime Born { get; set; }
 
         public override void Deserialize(object[] values)

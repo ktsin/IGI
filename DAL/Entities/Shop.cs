@@ -14,7 +14,7 @@ namespace DAL.Entities
         public int OwnerId { get; set; }
         public float Raiting { get; set; }
 
-        public override void Deserialize(object[] values) 
+        public override void Deserialize(object[] values)
         {
             if (values.Length != 4)
                 throw new Exception($"Got {values.Length}, expected {4} values");

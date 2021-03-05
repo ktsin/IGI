@@ -26,11 +26,14 @@ namespace lab1_inform.UI.Pages
                 isExist = Directory.Exists(path);
             }
             //opening repositories
+            StateSingleton.ConnectionString = path;
             StateSingleton.Context = new("CSV");
             StateSingleton.Context.BaseUsers.Open(path);
             StateSingleton.Context.Orders.Open(path);
             StateSingleton.Context.Products.Open(path);
             StateSingleton.Context.Shops.Open(path);
+            Console.WriteLine("Успешно открыто!");
+            this.Program.NavigateHome();
         }
     }
 }
