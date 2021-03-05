@@ -55,9 +55,23 @@ namespace lab1_inform.UI.Pages
                     str = EasyConsoleCore.Input.ReadString("Введите новое значение (пусто => не изменяем): ");
                     Console.WriteLine($"Echo : {str}");
                 }
-                var result = property.PropertyType
-                                    .GetMethod("Parse", new Type[] { typeof(String), typeof(IFormatProvider) })
-                                    .Invoke(null, new object[] { str, CultureInfo.InvariantCulture });
+                object result = null;
+                if (property.PropertyType != typeof(string) && property.PropertyType != typeof(DateTime))
+                {
+                    result = property.PropertyType
+                                        .GetMethod("Parse", new Type[] { typeof(String), typeof(IFormatProvider) })
+                                        .Invoke(null, new object[] { str, CultureInfo.InvariantCulture });
+                }
+                else
+                {
+                    if(property.PropertyType == typeof(string))
+                        result = str;
+                    else
+                    {
+                        //ДАТА
+                        result = DateTime.ParseExact(str, "dd.mm.yyyy", CultureInfo.InvariantCulture);
+                    }
+                }
                 property.SetMethod.Invoke(obj, new object[] { result });
             }
             context.GetType().GetMethod("Append").Invoke(context, new object[] { obj });
