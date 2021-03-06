@@ -5,8 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Лабораторная работа №2" Height="450" Width="800">
     <Grid>
-
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <StackPanel>
+            <Label Content="Выбор таблицы:" FontWeight="Normal" FontSize="20"/>
+            <ListView Height="300" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" ScrollViewer.CanContentScroll="True" UseLayoutRounding="False" Margin="0,20,0,0">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </StackPanel>
+        <DataGrid Grid.Column="1" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}"/>
+        <WrapPanel Grid.Column="2"/>
     </Grid>
 </Window>
