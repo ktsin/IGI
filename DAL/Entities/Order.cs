@@ -8,6 +8,8 @@ namespace DAL.Entities
 {
     public class Order : BaseEntity
     {
+        public Order() { }
+
         public override int Id { get; set; }
 
         public int Buyer { get; set; }

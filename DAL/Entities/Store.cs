@@ -7,13 +7,21 @@ using System.Text;
 namespace DAL.Entities
 {
 
-    public class Shop : BaseEntity
+    public class Store : BaseEntity
     {
+        public Store() { }
         public override int Id { get; set; }
         public string Name { get; set; }
+
         public int OwnerId { get; set; }
+
+        public string LabelPhotoPath { get; set; }
+
+        public string Location { get; set; }
+        
         public float Raiting { get; set; }
 
+        [Obsolete("Использование только для CSV")]
         public override void Deserialize(object[] values)
         {
             if (values.Length != 4)
@@ -27,6 +35,7 @@ namespace DAL.Entities
             }
         }
 
+        [Obsolete("Использование только для CSV")]
         public override object[] Serialize()
         {
             ArrayList list = new ArrayList()

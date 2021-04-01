@@ -78,6 +78,7 @@ namespace DAL.Repository
             }
             catch(Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 flag = false;
             }
             return flag;

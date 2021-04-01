@@ -8,6 +8,7 @@ namespace DAL.Entities
 {
     public class Product : BaseEntity
     {
+        public Product() { }
         public override int Id { get; set; }
 
         public float Price { get; set; }
