@@ -18,6 +18,7 @@ namespace DAL.Entities
 
         public float Price { get; set; }
 
+        [Obsolete]
         public override void Deserialize(object[] values)
         {
             if (values.Length != 5)
@@ -29,9 +30,10 @@ namespace DAL.Entities
             Price = (float)(Double)values[4];
         }
 
+        [Obsolete]
         public override object[] Serialize()
         {
-            ArrayList list = new ArrayList()
+            ArrayList list = new()
             {
                 $"'{Id}'",
                 $"'{Buyer}'",
