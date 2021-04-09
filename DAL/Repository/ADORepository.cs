@@ -10,8 +10,8 @@ namespace DAL.Repository
     {
         public void Append(T entity)
         {
-            var serialized = entity.Serialize();
-            var values = String.Join(", ", serialized.Skip(1));
+            object[] serialized = entity.Serialize();
+            string values = String.Join(", ", serialized.Skip(1));
             using SQLiteCommand command = connection.CreateCommand();
             command.CommandText = "BEGIN TRANSACTION;";
             command.ExecuteNonQuery();
@@ -35,11 +35,14 @@ namespace DAL.Repository
             using SQLiteCommand command = connection.CreateCommand();
             command.CommandText = $"SELECT * FROM \"main\".\"{tableName}\" WHERE Id={id};";
             command.CommandType = System.Data.CommandType.Text;
-            using var reader = command.ExecuteReader();
+            using SQLiteDataReader reader = command.ExecuteReader();
             if (!reader.HasRows)
+            {
                 return default;
-            var result = new T();
-            var values = new List<object>();
+            }
+
+            T result = new T();
+            List<object> values = new List<object>();
             foreach (DbDataRecord rec in reader)
             {
                 for (int i = 0; i < rec.FieldCount; i++)
@@ -64,7 +67,7 @@ namespace DAL.Repository
             {
                 connection = new SQLiteConnection($"Data Source={connectionString};Cache=Shared");
                 connection.Open();
-                var headerTest = new SQLiteCommand(connection);
+                SQLiteCommand headerTest = new SQLiteCommand(connection);
                 tableName = this.GetType().GetGenericArguments()[0].Name;
                 headerTest.CommandText = $"SELECT tbl_name FROM \"main\".sqlite_master WHERE name=\"{tableName}\";";
                 headerTest.CommandType = System.Data.CommandType.Text;
@@ -85,9 +88,9 @@ namespace DAL.Repository
 
         public void Update(T entity)
         {
-            var serialized = entity.Serialize().Skip(1);
-            var names = entity.GetType().GetProperties().Skip(1);
-            var namesAndValues = new List<string>();
+            IEnumerable<object> serialized = entity.Serialize().Skip(1);
+            IEnumerable<System.Reflection.PropertyInfo> names = entity.GetType().GetProperties().Skip(1);
+            List<string> namesAndValues = new List<string>();
             for (int i = 0; i < serialized.Count(); i++)
             {
                 namesAndValues.Add($"\"{names.ElementAt(i).Name}\"={serialized.ElementAt(i)}");
@@ -101,15 +104,18 @@ namespace DAL.Repository
 
         public List<T> Read()
         {
-            using var command = connection.CreateCommand();
+            using SQLiteCommand command = connection.CreateCommand();
             command.CommandText = $"SELECT * FROM \"main\".\"{tableName}\";";
-            var reader = command.ExecuteReader();
+            SQLiteDataReader reader = command.ExecuteReader();
             if (!reader.HasRows)
+            {
                 return new List<T>();
-            var result = new List<T>();
+            }
+
+            List<T> result = new List<T>();
             foreach (DbDataRecord i in reader)
             {
-                var record = new T();
+                T record = new T();
                 System.Collections.ArrayList fields = new(i.FieldCount);
                 for (int j = 0; j < i.FieldCount; j++)
                 {

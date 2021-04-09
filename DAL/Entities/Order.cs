@@ -22,7 +22,10 @@ namespace DAL.Entities
         public override void Deserialize(object[] values)
         {
             if (values.Length != 5)
+            {
                 throw new Exception($"Got {values.Length}, expected {5} values");
+            }
+
             Id = (Int32)(Int64)values[0];
             Buyer = (Int32)(Int64)values[1];
             ProductId = (Int32)(Int64)values[2];

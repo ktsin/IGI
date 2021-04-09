@@ -19,7 +19,10 @@ namespace DAL.Entities.EFCore
         public bool Add(User record)
         {
             if (this._context == null)
+            {
                 throw new NullReferenceException("Repository does not opened;");
+            }
+
             try
             {
                 this._context.Users.Add(record);

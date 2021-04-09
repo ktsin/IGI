@@ -1,4 +1,5 @@
 ﻿using BLL.DTO;
+using DAL.Entities.EFCore;
 using System;
 using System.Collections.Generic;
 
@@ -6,6 +7,11 @@ namespace BLL.Services
 {
     public class StoreService : Interfaces.IStoreService
     {
+        public StoreService(StoreRepository repository)
+        {
+            this.repository = repository;
+        }
+
         public bool Add(StoreDTO obj)
         {
             throw new NotImplementedException();
@@ -30,5 +36,7 @@ namespace BLL.Services
         {
             throw new NotImplementedException();
         }
+
+        private readonly StoreRepository repository = null;
     }
 }

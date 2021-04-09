@@ -23,7 +23,10 @@ namespace DAL.Entities
         public override void Deserialize(object[] values)
         {
             if (values.Length != 4)
+            {
                 throw new Exception($"Got {values.Length}, expected {4} values");
+            }
+
             unchecked
             {
                 Id = (int)((Int64)values[0]);

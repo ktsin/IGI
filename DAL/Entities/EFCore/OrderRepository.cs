@@ -4,11 +4,11 @@ using System.Linq;
 
 namespace DAL.Entities.EFCore
 {
-    public class StoreRepository : Interfaces.EntityInterfaces.IStoreRepository
+    public class OrderRepository : Interfaces.EntityInterfaces.IOrderRepository
     {
         private bool disposedValue;
 
-        public StoreRepository(Interfaces.EFCore.EFContextBasic context)
+        public OrderRepository(Interfaces.EFCore.EFContextBasic context)
         {
             _context = context;
         }
@@ -19,11 +19,11 @@ namespace DAL.Entities.EFCore
             set => _conStr = $"Data Source={value};";
         }
 
-        public bool Add(Store record)
+        public bool Add(Order record)
         {
             try
             {
-                this._context.Stores.Add(record);
+                this._context.Orders.Add(record);
                 return false;
             }
             catch (Exception ex)
@@ -37,12 +37,12 @@ namespace DAL.Entities.EFCore
             _context?.Dispose();
         }
 
-        public IEnumerable<Store> GetAll()
+        public IEnumerable<Order> GetAll()
         {
             try
             {
-                return _context.Stores.AsEnumerable().ToList();
-                //return _context.Stores.Select(e => e).AsEnumerable();
+                return _context.Orders.AsEnumerable().ToList();
+                //return _context.Orders.Select(e => e).AsEnumerable();
             }
             catch (Exception ex)
             {
@@ -50,11 +50,11 @@ namespace DAL.Entities.EFCore
             }
         }
 
-        public Store GetById(int Id)
+        public Order GetById(int Id)
         {
             try
             {
-                return (Store)_context.Stores.Where(e => e.Id == Id);
+                return (Order)_context.Orders.Where(e => e.Id == Id);
             }
             catch (Exception ex)
             {
@@ -72,8 +72,8 @@ namespace DAL.Entities.EFCore
             bool flag = true;
             try
             {
-                Store element = _context.Stores.Find(Id);
-                _context.Stores.Remove(element);
+                Order element = _context.Orders.Find(Id);
+                _context.Orders.Remove(element);
                 _context.SaveChanges();
             }
             catch
@@ -83,12 +83,12 @@ namespace DAL.Entities.EFCore
             return flag;
         }
 
-        public bool Update(int Id, Store editedRecord)
+        public bool Update(int Id, Order editedRecord)
         {
             bool flag = true;
             try
             {
-                _context.Stores.Update(editedRecord);
+                _context.Orders.Update(editedRecord);
                 _context.SaveChanges();
             }
             catch (Exception ex)

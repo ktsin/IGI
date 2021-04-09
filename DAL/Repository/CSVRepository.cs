@@ -13,18 +13,21 @@ namespace DAL.Repository
         public void Append(T entity)
         {
             {
-                var file = File.Open(filename, FileMode.Append);
-                using var fileStream = new StreamWriter(file);
-                var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture)
+                FileStream file = File.Open(filename, FileMode.Append);
+                using StreamWriter fileStream = new StreamWriter(file);
+                CsvConfiguration csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture)
                 {
                     HasHeaderRecord = false
                 };
-                using var csv = new CsvWriter(fileStream, csvConfig);
+                using CsvWriter csv = new CsvWriter(fileStream, csvConfig);
                 fileStream.NewLine = "\n";
                 //get last Id:
                 int lastId = 0;
                 if (data.Count > 0)
+                {
                     lastId = data.Max((e) => e.Id);
+                }
+
                 entity.Id = lastId + 1;
                 csv.WriteRecord(entity);
                 csv.Flush();
@@ -35,8 +38,8 @@ namespace DAL.Repository
         }
         public void Refresh()
         {
-            using var file = new StreamReader(File.OpenRead(filename));
-            using var csv = new CsvReader(file, CultureInfo.InvariantCulture);
+            using StreamReader file = new StreamReader(File.OpenRead(filename));
+            using CsvReader csv = new CsvReader(file, CultureInfo.InvariantCulture);
             data = csv.GetRecords<T>().ToList();
 
         }
@@ -45,8 +48,8 @@ namespace DAL.Repository
         {
             Refresh();
             data.RemoveAll(e => e.Id == id);
-            using var fileStrem = new StreamWriter(File.Open(filename, FileMode.Truncate));
-            using var cswWriter = new CsvWriter(fileStrem, CultureInfo.InvariantCulture);
+            using StreamWriter fileStrem = new StreamWriter(File.Open(filename, FileMode.Truncate));
+            using CsvWriter cswWriter = new CsvWriter(fileStrem, CultureInfo.InvariantCulture);
             cswWriter.WriteHeader<T>();
             cswWriter.WriteRecords(data);
             fileStrem.Flush();
@@ -60,15 +63,17 @@ namespace DAL.Repository
             if (fileFormatRegex.IsMatch(connectionString + $"{typeName}") && Directory.Exists(connectionString))
             {
 
-                using var file = new StreamReader(File.OpenRead(connectionString + $"{typeName}"));
-                var csv = new CsvReader(file, CultureInfo.InvariantCulture);
+                using StreamReader file = new StreamReader(File.OpenRead(connectionString + $"{typeName}"));
+                CsvReader csv = new CsvReader(file, CultureInfo.InvariantCulture);
                 filename = connectionString + typeName;
                 data = csv.GetRecords<T>().ToList();
 
                 return true;
             }
             else
+            {
                 return false;
+            }
         }
 
         public List<T> Read()
@@ -78,12 +83,12 @@ namespace DAL.Repository
 
         public void Update(T entity)
         {
-            var last = GetById(entity.Id);
+            T last = GetById(entity.Id);
             //copying fields from old to new
             data.RemoveAll(e => e.Id == entity.Id);
             data = data.Append(entity).ToList<T>();
-            using var fileStrem = new StreamWriter(File.Open(filename, FileMode.Truncate));
-            using var cswWriter = new CsvWriter(fileStrem, CultureInfo.InvariantCulture);
+            using StreamWriter fileStrem = new StreamWriter(File.Open(filename, FileMode.Truncate));
+            using CsvWriter cswWriter = new CsvWriter(fileStrem, CultureInfo.InvariantCulture);
             cswWriter.WriteHeader<T>();
             cswWriter.WriteRecords(data);
             fileStrem.Flush();

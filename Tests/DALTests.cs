@@ -8,9 +8,9 @@ namespace Tests
         [TestMethod]
         public void EFStoreRepository()
         {
-            var cntxt = new DAL.Repository.EFDataContext();
-            var repo = new DAL.Entities.EFCore.StoreRepository(cntxt);
-            var alls = repo.GetAll();
+            DAL.Repository.EFDataContext cntxt = new DAL.Repository.EFDataContext();
+            DAL.Entities.EFCore.StoreRepository repo = new DAL.Entities.EFCore.StoreRepository(cntxt);
+            System.Collections.Generic.IEnumerable<DAL.Entities.Store> alls = repo.GetAll();
         }
     }
 }

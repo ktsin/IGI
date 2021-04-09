@@ -1,8 +1,7 @@
 ﻿using BLL.DTO;
-using System.Linq;
 using BLL.DTO.Converters;
-using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BLL.Services
 {
@@ -36,7 +35,8 @@ namespace BLL.Services
 
         public bool Update(UserDTO obj)
         {
-            throw new NotImplementedException();
+            repository.Update(obj.FromUserDTO());
+            return true;
         }
 
         private readonly DAL.IRepository<DAL.Entities.User> repository = null;
