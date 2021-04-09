@@ -3,7 +3,7 @@ using DAL.Entities;
 
 namespace BLL.DTO
 {
-    public class OrderDTO
+    public class OrderDTO : IDTO
     {
         public int Id { get; set; }
 

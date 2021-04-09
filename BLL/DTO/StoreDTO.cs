@@ -3,9 +3,10 @@ using DAL.Entities;
 
 namespace BLL.DTO
 {
-    public class StoreDTO
+    public class StoreDTO : IDTO
     {
         public int Id { get; set; }
+
         public string Name { get; set; }
 
         public int OwnerId { get; set; }

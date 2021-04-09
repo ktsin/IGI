@@ -4,7 +4,7 @@ using System;
 
 namespace BLL.DTO
 {
-    public class UserDTO
+    public class UserDTO : IDTO
     {
         public int Id { get; set; }
 
