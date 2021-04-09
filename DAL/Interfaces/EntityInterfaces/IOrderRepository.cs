@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DAL.Interfaces.EntityInterfaces
+﻿namespace DAL.Interfaces.EntityInterfaces
 {
     public interface IOrderRepository : IRepository<Entities.Order>
     {

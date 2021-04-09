@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repository
 {
-    public class EFDataContext : Microsoft.EntityFrameworkCore.DbContext
+    public class EFDataContext : Interfaces.EFCore.EFContextBasic
     {
-        public EFDataContext(){
+        public EFDataContext()
+        {
             this.Database.EnsureCreated();
         }
 
@@ -21,12 +16,12 @@ namespace DAL.Repository
                 .UseLazyLoadingProxies();
         }
 
-        public DbSet<DAL.Entities.Order> Orders { get; set; }
+        public override DbSet<DAL.Entities.Order> Orders { get; set; }
 
-        public DbSet<DAL.Entities.Product> Products { get; set; }
+        public override DbSet<DAL.Entities.Product> Products { get; set; }
 
-        public DbSet<DAL.Entities.User> Users { get; set; }
+        public override DbSet<DAL.Entities.User> Users { get; set; }
 
-        public DbSet<DAL.Entities.Store> Stores { get; set; }
+        public override DbSet<DAL.Entities.Store> Stores { get; set; }
     }
 }

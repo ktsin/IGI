@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
 
 namespace DAL.Entities
 {
@@ -18,7 +16,7 @@ namespace DAL.Entities
         public string LabelPhotoPath { get; set; }
 
         public string Location { get; set; }
-        
+
         public float Raiting { get; set; }
 
         [Obsolete("Использование только для CSV")]

@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
-using CsvHelper;
 
 namespace DAL.Entities
 {
@@ -31,7 +28,7 @@ namespace DAL.Entities
 
         [Required]
         public DateTime RegistrationDate { get; set; }
-        
+
         public string PhotoPath { get; set; }
 
         public string Deliverydate { get; set; }

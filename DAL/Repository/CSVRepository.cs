@@ -1,18 +1,16 @@
-﻿using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using System.Reflection;
-using CsvHelper;
-using System.Globalization;
-using System.Linq;
+﻿using CsvHelper;
 using CsvHelper.Configuration;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace DAL.Repository
 {
     public class CSVRepository<T> : IRepository<T> where T : Entities.BaseEntity
     {
-        public void Append(T entity) 
+        public void Append(T entity)
         {
             {
                 var file = File.Open(filename, FileMode.Append);
@@ -25,7 +23,7 @@ namespace DAL.Repository
                 fileStream.NewLine = "\n";
                 //get last Id:
                 int lastId = 0;
-                if(data.Count > 0)
+                if (data.Count > 0)
                     lastId = data.Max((e) => e.Id);
                 entity.Id = lastId + 1;
                 csv.WriteRecord(entity);
@@ -33,14 +31,14 @@ namespace DAL.Repository
                 fileStream.WriteLine("");
             }
             Refresh();
-            
+
         }
         public void Refresh()
         {
             using var file = new StreamReader(File.OpenRead(filename));
             using var csv = new CsvReader(file, CultureInfo.InvariantCulture);
             data = csv.GetRecords<T>().ToList();
-            
+
         }
 
         public void Delete(int id)
@@ -57,16 +55,16 @@ namespace DAL.Repository
 
         public bool Open(string connectionString)
         {
-            string typeName = this.GetType().GetGenericArguments()[0].Name+".csv";
+            string typeName = this.GetType().GetGenericArguments()[0].Name + ".csv";
             //here connectionString is path to *.csv file
             if (fileFormatRegex.IsMatch(connectionString + $"{typeName}") && Directory.Exists(connectionString))
             {
-                
+
                 using var file = new StreamReader(File.OpenRead(connectionString + $"{typeName}"));
                 var csv = new CsvReader(file, CultureInfo.InvariantCulture);
-                filename = connectionString+typeName;
+                filename = connectionString + typeName;
                 data = csv.GetRecords<T>().ToList();
-                
+
                 return true;
             }
             else

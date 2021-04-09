@@ -1,16 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAL.Entities.EFCore
 {
     public class UserRepository : Interfaces.EntityInterfaces.IUserRepository
     {
         private bool disposedValue;
-
-        public string ConnectionString { get => _conStr; set => _conStr = $"Data Source={value};"; }
+        public UserRepository(Interfaces.EFCore.EFContextBasic context)
+        {
+            _context = context;
+        }
+        public string ConnectionString
+        {
+            get => _conStr;
+            set => _conStr = $"Data Source={value};";
+        }
 
         public bool Add(User record)
         {
@@ -21,7 +25,7 @@ namespace DAL.Entities.EFCore
                 this._context.Users.Add(record);
                 return false;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception($"In {this.GetType().Name} repository exception: {ex.Message}", ex);
             }
@@ -78,6 +82,6 @@ namespace DAL.Entities.EFCore
 
         private string _conStr = null;
 
-        private Repository.EFDataContext _context = null;
+        private Interfaces.EFCore.EFContextBasic _context = null;
     }
 }

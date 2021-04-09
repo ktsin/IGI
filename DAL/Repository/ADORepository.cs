@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SQLite;
 using System.Data.Common;
+using System.Data.SQLite;
 using System.Linq;
-using System.Text;
 
 namespace DAL.Repository
 {
@@ -16,7 +15,7 @@ namespace DAL.Repository
             using SQLiteCommand command = connection.CreateCommand();
             command.CommandText = "BEGIN TRANSACTION;";
             command.ExecuteNonQuery();
-            command.CommandText = $"INSERT INTO \"main\".\"{tableName}\" VALUES({"null,"+values});";
+            command.CommandText = $"INSERT INTO \"main\".\"{tableName}\" VALUES({"null," + values});";
             command.ExecuteNonQuery();
             command.CommandText = "COMMIT;";
             command.ExecuteNonQuery();
@@ -41,9 +40,9 @@ namespace DAL.Repository
                 return default;
             var result = new T();
             var values = new List<object>();
-            foreach(DbDataRecord rec in reader)
+            foreach (DbDataRecord rec in reader)
             {
-                for(int i = 0; i < rec.FieldCount; i++)
+                for (int i = 0; i < rec.FieldCount; i++)
                 {
                     values.Add(rec[i]);
                 }
@@ -74,9 +73,9 @@ namespace DAL.Repository
                 {
                     connection.Close();
                     return false;
-                }                
+                }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 flag = false;
@@ -89,7 +88,7 @@ namespace DAL.Repository
             var serialized = entity.Serialize().Skip(1);
             var names = entity.GetType().GetProperties().Skip(1);
             var namesAndValues = new List<string>();
-            for(int i = 0; i < serialized.Count(); i++)
+            for (int i = 0; i < serialized.Count(); i++)
             {
                 namesAndValues.Add($"\"{names.ElementAt(i).Name}\"={serialized.ElementAt(i)}");
             }
@@ -108,11 +107,11 @@ namespace DAL.Repository
             if (!reader.HasRows)
                 return new List<T>();
             var result = new List<T>();
-            foreach(DbDataRecord i in reader)
+            foreach (DbDataRecord i in reader)
             {
                 var record = new T();
                 System.Collections.ArrayList fields = new(i.FieldCount);
-                for(int j = 0; j < i.FieldCount; j++)
+                for (int j = 0; j < i.FieldCount; j++)
                 {
                     fields.Add(i[j]);
                 }
