@@ -17,7 +17,7 @@ namespace BLL.DTO.Converters
             return mapper.Map<ProductDTO>(product);
         }
 
-        public static StoreDTO ToProductDTO(this DAL.Entities.Store store)
+        public static StoreDTO ToStoreDTO(this DAL.Entities.Store store)
         {
             AutoMapper.IMapper mapper = StoreDTO.mapConfig.CreateMapper();
             return mapper.Map<StoreDTO>(store);

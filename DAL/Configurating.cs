@@ -5,7 +5,7 @@ namespace DAL
 {
     public static class Configurating
     {
-        public static void ConfigurateDalService(this IServiceCollection services, string connectionString)
+        public static void ConfigurateDALService(this IServiceCollection services, string connectionString)
         {
             services.
                 AddDbContext<Repository.EFDataContext>(opt => opt.UseSqlite(connectionString)

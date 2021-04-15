@@ -1,34 +1,44 @@
 ﻿using BLL.DTO;
-using System;
+using BLL.DTO.Converters;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BLL.Services
 {
     public class ProductService : Interfaces.IProductService
     {
+        public ProductService(DAL.IRepository<DAL.Entities.Product> repository)
+        {
+            this.repository = repository;
+        }
         public bool Add(ProductDTO obj)
         {
-            throw new NotImplementedException();
+            repository.Append(obj.FromProductDTO());
+            return true;
         }
 
         public bool Delete(int id)
         {
-            throw new NotImplementedException();
+            repository.Delete(id);
+            return true;
         }
 
         public ProductDTO GetById(int Id)
         {
-            throw new NotImplementedException();
+            return repository.GetById(Id).ToProductDTO();
         }
 
         public IEnumerable<ProductDTO> ReadAll()
         {
-            throw new NotImplementedException();
+            return repository.Read().Select(e => e.ToProductDTO());
         }
 
         public bool Update(ProductDTO obj)
         {
-            throw new NotImplementedException();
+            repository.Update(obj.FromProductDTO());
+            return true;
         }
+
+        private readonly DAL.IRepository<DAL.Entities.Product> repository = null;
     }
 }

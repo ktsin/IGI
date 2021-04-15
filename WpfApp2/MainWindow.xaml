@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:WpfApp"
         mc:Ignorable="d"
         Title="Лабораторная работа №2" Height="450" Width="800">
+    <Window.DataContext>
+        <local:MainWindowViewModel/>
+    </Window.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -17,7 +20,5 @@
             <Button Content="Открыть БД" Margin="10, 20"/>
         </StackPanel>
         <DataGrid Grid.Column="1"/>
-
-
     </Grid>
 </Window>

@@ -1,42 +1,44 @@
 ﻿using BLL.DTO;
-using DAL.Entities.EFCore;
-using System;
+using BLL.DTO.Converters;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BLL.Services
 {
     public class StoreService : Interfaces.IStoreService
     {
-        public StoreService(StoreRepository repository)
+        public StoreService(DAL.IRepository<DAL.Entities.Store> repository)
         {
             this.repository = repository;
         }
-
         public bool Add(StoreDTO obj)
         {
-            throw new NotImplementedException();
+            repository.Append(obj.FromStoreDTO());
+            return true;
         }
 
         public bool Delete(int id)
         {
-            throw new NotImplementedException();
+            repository.Delete(id);
+            return true;
         }
 
         public StoreDTO GetById(int Id)
         {
-            throw new NotImplementedException();
+            return repository.GetById(Id).ToStoreDTO();
         }
 
         public IEnumerable<StoreDTO> ReadAll()
         {
-            throw new NotImplementedException();
+            return repository.Read().Select(e => e.ToStoreDTO());
         }
 
         public bool Update(StoreDTO obj)
         {
-            throw new NotImplementedException();
+            repository.Update(obj.FromStoreDTO());
+            return true;
         }
 
-        private readonly StoreRepository repository = null;
+        private readonly DAL.IRepository<DAL.Entities.Store> repository = null;
     }
 }
