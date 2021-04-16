@@ -16,7 +16,7 @@
         </Grid.ColumnDefinitions>
         <StackPanel>
             <Label Content="Таблицы" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Stretch" FontFamily="DejaVu Sans" FontSize="18"/>
-            <ListBox VerticalAlignment="Stretch"/>
+            <ListBox VerticalAlignment="Stretch" DataContext="TableNames"/>
             <Button Content="Открыть БД" Margin="10, 20"/>
         </StackPanel>
         <DataGrid Grid.Column="1"/>
