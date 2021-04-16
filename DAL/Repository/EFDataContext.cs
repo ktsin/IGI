@@ -4,17 +4,22 @@ namespace DAL.Repository
 {
     public class EFDataContext : Interfaces.EFCore.EFContextBasic
     {
-        public EFDataContext()
+        public EFDataContext(DbContextOptions<EFDataContext> conf) : base(conf)
         {
-            this.Database.EnsureCreated();
+            this.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
+        //public EFDataContext()
+        //{
+        //    this.Database.EnsureCreated();
+        //    this.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+        //}
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder
-                .UseSqlite(@"Data Source=data.sqlite3;")
-                .UseLazyLoadingProxies();
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder
+        //        .UseSqlite(@"Data Source=data.sqlite3;")
+        //        .UseLazyLoadingProxies();
+        //}
 
         public override DbSet<DAL.Entities.Order> Orders { get; set; }
 
