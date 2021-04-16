@@ -8,18 +8,10 @@ namespace DAL.Repository
         {
             this.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
-        //public EFDataContext()
-        //{
-        //    this.Database.EnsureCreated();
-        //    this.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-        //}
-
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder
-        //        .UseSqlite(@"Data Source=data.sqlite3;")
-        //        .UseLazyLoadingProxies();
-        //}
+        public EFDataContext()
+        {
+            this.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+        }
 
         public override DbSet<DAL.Entities.Order> Orders { get; set; }
 

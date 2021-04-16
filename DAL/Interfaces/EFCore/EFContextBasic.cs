@@ -5,6 +5,7 @@ namespace DAL.Interfaces.EFCore
 {
     public abstract class EFContextBasic : DbContext
     {
+        public EFContextBasic() { }
         public EFContextBasic(DbContextOptions<EFDataContext> conf) : base(conf) { }
 
         public virtual DbSet<DAL.Entities.Order> Orders { get; set; }
