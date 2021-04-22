@@ -7,19 +7,19 @@ namespace BLL.Services
 {
     public class ProductService : Interfaces.IProductService
     {
-        public ProductService(DAL.IRepository<DAL.Entities.Product> repository)
+        public ProductService(DAL.Interfaces.EntityInterfaces.IProductRepository repository)
         {
             this.repository = repository;
         }
         public bool Add(ProductDTO obj)
         {
-            repository.Append(obj.FromProductDTO());
+            repository.Add(obj.FromProductDTO());
             return true;
         }
 
         public bool Delete(int id)
         {
-            repository.Delete(id);
+            repository.RemoveById(id);
             return true;
         }
 
@@ -30,15 +30,15 @@ namespace BLL.Services
 
         public IEnumerable<ProductDTO> ReadAll()
         {
-            return repository.Read().Select(e => e.ToProductDTO());
+            return repository.GetAll().Select(e => e.ToProductDTO());
         }
 
         public bool Update(ProductDTO obj)
         {
-            repository.Update(obj.FromProductDTO());
+            repository.Update(obj.Id, obj.FromProductDTO());
             return true;
         }
 
-        private readonly DAL.IRepository<DAL.Entities.Product> repository = null;
+        private readonly DAL.Interfaces.EntityInterfaces.IProductRepository repository = null;
     }
 }

@@ -1,12 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace WpfApp
 {
     class MainWindowViewModel : INotifyPropertyChanged
     {
-        public MainWindowViewModel() { }
+        public MainWindowViewModel() {
+            this._model = ServicesHolder.Provider.GetRequiredService<MainWindowModel>();
+        }
         public MainWindowViewModel(MainWindowModel model)
         {
             this._model = model;

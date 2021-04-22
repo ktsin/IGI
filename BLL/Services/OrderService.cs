@@ -7,19 +7,19 @@ namespace BLL.Services
 {
     public class OrderService : Interfaces.IOrderService
     {
-        public OrderService(DAL.IRepository<DAL.Entities.Order> repository)
+        public OrderService(DAL.Interfaces.EntityInterfaces.IOrderRepository repository)
         {
             this.repository = repository;
         }
         public bool Add(OrderDTO obj)
         {
-            repository.Append(obj.FromOrderDTO());
+            repository.Add(obj.FromOrderDTO());
             return true;
         }
 
         public bool Delete(int id)
         {
-            repository.Delete(id);
+            repository.RemoveById(id);
             return true;
         }
 
@@ -30,15 +30,15 @@ namespace BLL.Services
 
         public IEnumerable<OrderDTO> ReadAll()
         {
-            return repository.Read().Select(e => e.ToOrderDTO());
+            return repository.GetAll().Select(e => e.ToOrderDTO());
         }
 
         public bool Update(OrderDTO obj)
         {
-            repository.Update(obj.FromOrderDTO());
+            repository.Update(obj.Id, obj.FromOrderDTO());
             return true;
         }
 
-        private readonly DAL.IRepository<DAL.Entities.Order> repository = null;
+        private readonly DAL.Interfaces.EntityInterfaces.IOrderRepository repository = null;
     }
 }

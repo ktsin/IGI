@@ -11,7 +11,7 @@ namespace WpfApp
     {
         void App_Startup(object sender, StartupEventArgs e)
         {
-            ServicesHolder.Collection.ConfigurateBLLService(@"Data Source=data.sqlite3;");
+            ServicesHolder.Collection.ConfigurateUIService(@"Data Source=data.sqlite3;");
             ServicesHolder.Provider = ServicesHolder.Collection.BuildServiceProvider();
         }
     }

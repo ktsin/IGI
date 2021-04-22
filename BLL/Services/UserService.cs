@@ -7,19 +7,19 @@ namespace BLL.Services
 {
     public class UserService : Interfaces.IUserService
     {
-        public UserService(DAL.IRepository<DAL.Entities.User> repository)
+        public UserService(DAL.Interfaces.EntityInterfaces.IUserRepository repository)
         {
             this.repository = repository;
         }
         public bool Add(UserDTO obj)
         {
-            repository.Append(obj.FromUserDTO());
+            repository.Add(obj.FromUserDTO());
             return true;
         }
 
         public bool Delete(int id)
         {
-            repository.Delete(id);
+            repository.RemoveById(id);
             return true;
         }
 
@@ -30,15 +30,15 @@ namespace BLL.Services
 
         public IEnumerable<UserDTO> ReadAll()
         {
-            return repository.Read().Select(e => e.ToUserDTO());
+            return repository.GetAll().Select(e => e.ToUserDTO());
         }
 
         public bool Update(UserDTO obj)
         {
-            repository.Update(obj.FromUserDTO());
+            repository.Update(obj.Id, obj.FromUserDTO());
             return true;
         }
 
-        private readonly DAL.IRepository<DAL.Entities.User> repository = null;
+        private readonly DAL.Interfaces.EntityInterfaces.IUserRepository repository = null;
     }
 }

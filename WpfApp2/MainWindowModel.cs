@@ -9,7 +9,8 @@ namespace WpfApp
 {
     public class MainWindowModel : INotifyPropertyChanged
     {
-        public MainWindowModel(IOrderService orderService,
+        public MainWindowModel(
+            IOrderService orderService,
             IProductService productService,
             IStoreService storeService,
             IUserService userService)
