@@ -62,6 +62,7 @@ namespace DAL.Entities.EFCore
             }
         }
 
+        [Obsolete]
         public bool Open()
         {
             throw new NotImplementedException();

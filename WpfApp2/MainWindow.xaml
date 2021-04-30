@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Лабораторная работа №2" Height="450" Width="800">
     <Window.DataContext>
-        <local:MainWindowViewModel/>
+        <local:MainWindowViewModel x:Name="_viewModel"/>
     </Window.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -16,9 +16,11 @@
         </Grid.ColumnDefinitions>
         <StackPanel>
             <Label Content="Таблицы" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Stretch" FontFamily="DejaVu Sans" FontSize="18"/>
-            <ListBox VerticalAlignment="Stretch" ItemsSource="{Binding TableNames}"/>
-            <Button Content="Открыть БД" Margin="10, 20"/>
+            <ListBox ItemsSource="{Binding TableNames}" VerticalAlignment="Stretch" SelectedItem="{Binding SelectedTable}" SelectionChanged="ListBox_SelectionChanged">
+            </ListBox>
+            <Button Content="Сохранить данные!" Margin="10, 20" Command="{Binding ChangeDB}" Click="Button_Click"/>
         </StackPanel>
-        <DataGrid Grid.Column="1"/>
+        <DataGrid Grid.Column="1" ItemsSource="{Binding CurrentTable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="DataViewTable" RowEditEnding="DataViewTable_RowEditEnding"/>
+
     </Grid>
 </Window>

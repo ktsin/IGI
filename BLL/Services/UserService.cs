@@ -17,6 +17,12 @@ namespace BLL.Services
             return true;
         }
 
+        public bool Add(object obj)
+        {
+            repository.Add((obj as UserDTO)?.FromUserDTO());
+            return true;
+        }
+
         public bool Delete(int id)
         {
             repository.RemoveById(id);

@@ -61,7 +61,7 @@ namespace DAL.Entities.EFCore
                 throw new Exception($"In {this.GetType().Name} repository exception: {ex.Message}", ex);
             }
         }
-
+        [Obsolete]
         public bool Open()
         {
             throw new NotImplementedException();
@@ -75,6 +75,7 @@ namespace DAL.Entities.EFCore
                 Order element = _context.Orders.Find(Id);
                 _context.Orders.Remove(element);
                 _context.SaveChanges();
+                
             }
             catch
             {

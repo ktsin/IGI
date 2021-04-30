@@ -7,6 +7,7 @@ namespace DAL.Repository
         public EFDataContext(DbContextOptions<EFDataContext> conf) : base(conf)
         {
             this.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+            //Database.EnsureCreated();
         }
         public EFDataContext()
         {

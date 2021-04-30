@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
 
 namespace DAL.Entities
@@ -7,6 +8,8 @@ namespace DAL.Entities
     public class Product : BaseEntity
     {
         public Product() { }
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public override int Id { get; set; }
 
         public float Price { get; set; }

@@ -41,7 +41,7 @@ namespace DAL.Entities.EFCore
 
         public IEnumerable<User> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.Users;
         }
 
         public User GetById(int Id)
